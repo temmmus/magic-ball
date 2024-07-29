@@ -14,10 +14,14 @@ export default {
     return {
       answers: answers,
       answer: "",
+      isShaking: false,
     };
   },
   methods: {
     shakeBall() {
+      if (this.isShaking) return;
+      this.isShaking = true;
+
       const randomIndex = Math.floor(Math.random() * this.answers.length);
 
       (this.$refs.ball as HTMLElement).classList.add("shake");
@@ -29,11 +33,11 @@ export default {
 
         (this.$refs.triangle as HTMLElement).classList.remove("hidden");
         (this.$refs.answer as HTMLElement).classList.remove("hidden");
-
         (this.$refs.triangle as HTMLElement).classList.add("visible");
         (this.$refs.answer as HTMLElement).classList.add("visible");
-
         (this.$refs.ball as HTMLElement).classList.remove("shake");
+
+        this.isShaking = false;
       }, 1000);
     },
   },
@@ -42,8 +46,10 @@ export default {
 
 <style scoped>
 .ball {
-  width: 500px;
-  height: 500px;
+  width: 80vw;
+  max-width: 500px;
+  height: 80vw;
+  max-height: 500px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #222222, #000000);
   position: relative;
@@ -57,8 +63,8 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 260px;
-  height: 260px;
+  width: 50%;
+  height: 50%;
   border: 8px solid #171717;
   border-radius: 50%;
   background: radial-gradient(circle at 90% 90%, #1c1c1c, #121212);
@@ -70,24 +76,24 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0;
-  height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-top: 150px solid hsla(240, 100%, 50%, 0.35);
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -30%);
+  width: 40%;
+  height: 30%;
+  background: linear-gradient(
+    to bottom,
+    rgb(0, 0, 255, 0.5),
+    rgb(0, 0, 255, 0.2)
+  );
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .answer {
-  position: relative;
-  top: -120px;
-  left: -55px;
-  margin: 0px;
-  width: 100px;
-  height: 100px;
-  font-size: 13px;
-  text-align: center;
-  color: #c2c2c2;
+  width: 60%;
+  color: #d3d3d3;
+  text-shadow: 1px 1px 8px #ff00f2;
 }
 
 .visible {
@@ -111,13 +117,13 @@ export default {
   50%,
   70%,
   90% {
-    transform: translate(-40px, 0) rotate(40deg);
+    transform: translate(-4vw, 0) rotate(4deg);
   }
   20%,
   40%,
   60%,
   80% {
-    transform: translate(40px, 0) rotate(-40deg);
+    transform: translate(4vw, 0) rotate(-4deg);
   }
 }
 
