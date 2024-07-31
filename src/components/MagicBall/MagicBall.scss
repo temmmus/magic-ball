@@ -7,9 +7,9 @@ $answer-color: #d3d3d3;
 $answer-text-shadow: #ff00f2;
 
 .ball {
-  width: 80vw;
+  width: 90vw;
   max-width: 500px;
-  height: 80vw;
+  height: 90vw;
   max-height: 500px;
   border-radius: 50%;
   background: radial-gradient(
@@ -26,8 +26,8 @@ $answer-text-shadow: #ff00f2;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 50%;
-    height: 50%;
+    width: 55%;
+    height: 55%;
     border: 8px solid $inner-circle-border;
     border-radius: 50%;
     background: radial-gradient(
@@ -45,8 +45,8 @@ $answer-text-shadow: #ff00f2;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -30%);
-  width: 40%;
-  height: 30%;
+  width: 45%;
+  height: 35%;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 255, 0.5),
@@ -54,19 +54,16 @@ $answer-text-shadow: #ff00f2;
   );
   clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
 }
 
 .answer {
-  padding: 0;
-  margin: 0;
-  margin-top: 24px;
+  width: 50%;
+  height: 50%;
   text-align: center;
-  display: block;
-  width: 65%;
   color: $answer-color;
-  font-size: clamp(0.4rem, 1vw, 1.4rem);
+  font-size: clamp(0.5rem, 0.75rem, 1rem);
   text-shadow: 1px 1px 8px $answer-text-shadow;
 }
 
