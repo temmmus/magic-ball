@@ -1,11 +1,11 @@
 import { createApp } from "vue";
-import "./assets/style.scss";
-import App from "./App.vue";
-import Canvas from "./components/Canvas/Canvas.vue";
-import MagicBall from "./components/MagicBall/MagicBall.vue";
+import store from "@/store";
+import i18n from "@/i18n";
+import App from "@/App.vue";
+import "@/assets/style.scss";
 
 const app = createApp(App);
 
-app.component("Canvas", Canvas);
-app.component("MagicBall", MagicBall);
+app.use(store);
+app.use(i18n);
 app.mount("#app");
