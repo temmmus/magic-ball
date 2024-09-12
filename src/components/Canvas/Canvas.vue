@@ -1,14 +1,15 @@
 <template>
-  <div id="canvas" ref="canvas">
+  <div id="canvas" class="canvas">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import * as THREE from "three";
 import FOG from "vanta/dist/vanta.fog.min";
 
-export default {
+export default defineComponent({
   name: "Canvas",
   mounted() {
     this.initVanta();
@@ -32,7 +33,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style scoped src="./Canvas.scss"></style>

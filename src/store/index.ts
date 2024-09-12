@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 
-interface State {
+export interface State {
   locale: string;
 }
 
