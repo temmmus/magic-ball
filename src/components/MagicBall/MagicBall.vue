@@ -1,23 +1,40 @@
 <template>
-  <div class="ball" ref="ball" @click="shake()">
-    <div class="triangle hidden" ref="triangle">
-      <p class="answer" ref="answer">{{ answer }}</p>
+  <div class="magic-ball">
+    <p class="magic-ball__brief" ref="brief">{{ $t("brief") }} {{ countdown }}</p>
+    <div class="magic-ball__container" ref="ball" @click="shake()">
+      <div class="magic-ball__triangle" ref="triangle">
+        <p class="magic-ball__answer" ref="answer">{{ answer }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import { mapState } from "vuex";
-import { ANSWERS_COUNT } from "@/shared/constants.ts";
+import { ANSWERS_COUNT } from "../../shared/constants";
 
-export default {
+export default defineComponent({
   name: "MagicBall",
   data() {
     return {
       count: ANSWERS_COUNT,
       answer: "",
+      isActive: false,
       isShaking: false,
+      countdown: 5,
+      lastX: 0 as number | null,
+      lastY: 0 as number | null,
+      lastZ: 0 as number | null,
+      shakeThreshold: 15, // Порог тряски
     };
+  },
+  mounted() {
+    this.start();
+    window.addEventListener("devicemotion", this.handleMotion);
+  },
+  beforeUnmount() {
+    window.removeEventListener("devicemotion", this.handleMotion);
   },
   computed: {
     ...mapState(["locale"]),
@@ -28,6 +45,29 @@ export default {
     },
   },
   methods: {
+    start() {
+      const ball = this.$refs.ball as HTMLElement;
+      const brief = this.$refs.brief as HTMLElement;
+      const triangle = this.$refs.triangle as HTMLElement;
+
+      ball.classList.add("inactive");
+      triangle.classList.add("inactive");
+
+      const interval = setInterval(() => {
+        this.countdown--;
+        if (this.countdown < 0) {
+          clearInterval(interval);
+          this.countdown = 0;
+        }
+      }, 1000);
+
+      setTimeout(() => {
+        brief.classList.add("hidden");
+        ball.classList.remove("inactive");
+        ball.classList.add("active");
+        this.isActive = true;
+      }, this.countdown * 1000);
+    },
     reset() {
       const triangle = this.$refs.triangle as HTMLElement;
       const answer = this.$refs.answer as HTMLElement;
@@ -38,7 +78,8 @@ export default {
       answer.classList.add("hidden");
     },
     shake() {
-      if (this.isShaking) return;
+      if (!this.isActive || this.isShaking) return;
+
       this.isShaking = true;
 
       const ball = this.$refs.ball as HTMLElement;
@@ -61,10 +102,42 @@ export default {
         ball.classList.remove("shake");
 
         this.isShaking = false;
-      }, 1000);
+      }, 1300);
+    },
+    handleMotion(event: DeviceMotionEvent) {
+      const acceleration = event.accelerationIncludingGravity;
+
+      if (!acceleration) return;
+
+      const currentX = acceleration.x!;
+      const currentY = acceleration.y!;
+      const currentZ = acceleration.z!;
+
+      if (this.lastX === null) {
+        this.lastX = currentX;
+        this.lastY = currentY;
+        this.lastZ = currentZ;
+        return;
+      }
+
+      const deltaX = Math.abs(currentX - this.lastX!);
+      const deltaY = Math.abs(currentY - this.lastY!);
+      const deltaZ = Math.abs(currentZ - this.lastZ!);
+
+      if (
+        deltaX > this.shakeThreshold ||
+        deltaY > this.shakeThreshold ||
+        deltaZ > this.shakeThreshold
+      ) {
+        this.shake();
+      }
+
+      this.lastX = currentX;
+      this.lastY = currentY;
+      this.lastZ = currentZ;
     },
   },
-};
+});
 </script>
 
 <style scoped src="./MagicBall.scss"></style>
