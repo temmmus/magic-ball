@@ -1,13 +1,14 @@
-# Magic 8-Ball
+# Magic 8 Ball
 
-This project is a Magic 8-Ball application that provides answers to your questions.
+This project is a Magic 8 Ball application that provides answers to your questions.
 
 ## Features
 
-- Magic 8-Ball: Get answers to your questions with a classic Magic 8-Ball experience.
-- Language Switching: Toggle between Russian and English languages.
-- Phone Shaking Detection: Shake your phone to receive a prediction.
-- 3D Effects: Enhanced with Three.js and Vanta.js for a dynamic background and visual effects
+- Get answers to your questions with a classic Magic 8 Ball experience.
+- Toggle between languages (Russian and English).
+- Shake your phone to receive a prediction.
+- Enhanced with Three.js and Vanta.js for a dynamic background and visual effects
+- Progressive Web App (PWA) support – install the app on your device for offline access and a native app experience
 
 ## Live Demo
 
