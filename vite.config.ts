@@ -23,6 +23,7 @@ export default defineConfig({
         description: "A simple Magic 8 Ball application",
         start_url: "/magic-ball/",
         display: "standalone",
+        orientation: "portrait-primary",
         background_color: "#000000",
         theme_color: "#000000",
         icons: [

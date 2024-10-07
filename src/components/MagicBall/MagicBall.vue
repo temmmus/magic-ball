@@ -51,7 +51,8 @@ export default defineComponent({
       const triangle = this.$refs.triangle as HTMLElement;
 
       ball.classList.add("inactive");
-      triangle.classList.add("inactive");
+      brief.classList.add("visible");
+      triangle.classList.add("hidden");
 
       const interval = setInterval(() => {
         this.countdown--;
@@ -62,12 +63,14 @@ export default defineComponent({
       }, 1000);
 
       setTimeout(() => {
+        brief.classList.remove("visible");
         brief.classList.add("hidden");
         ball.classList.remove("inactive");
         ball.classList.add("active");
         this.isActive = true;
       }, this.countdown * 1000);
     },
+
     reset() {
       const triangle = this.$refs.triangle as HTMLElement;
       const answer = this.$refs.answer as HTMLElement;
@@ -77,6 +80,7 @@ export default defineComponent({
       triangle.classList.add("hidden");
       answer.classList.add("hidden");
     },
+
     shake() {
       if (!this.isActive || this.isShaking) return;
 
