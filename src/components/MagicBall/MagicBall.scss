@@ -11,7 +11,17 @@
     text-align: center;
     top: 1rem;
     font-size: 1.5rem;
+    color: variables.$white-text-color;
     text-shadow: variables.$pink-text-shadow;
+    transition: opacity 1s ease-in-out;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
   }
 
   &__container {
@@ -24,6 +34,7 @@
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), inset 0 -10px 100px rgba(0, 0, 0, 0.8),
       inset 0 10px 20px rgba(0, 0, 0, 0.5);
     transform-style: preserve-3d;
+    position: relative;
 
     &::before {
       position: absolute;
@@ -32,27 +43,48 @@
       width: 55%;
       height: 55%;
       border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: all 1s ease-in;
-      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.5));
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    }
-
-    &.active::before {
-      content: "";
-      background: radial-gradient(circle at 90% 90%, #1c1c1c, #121212);
-      border: 10px solid #171717;
-      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-    }
-
-    &.inactive::before {
-      content: "8";
+      transform: translate(-50%, -50%) scale(1);
       background: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transition: opacity 1s ease, transform 1s ease;
+      opacity: 1;
+      content: "8";
       display: flex;
       align-items: center;
       justify-content: center;
-      color: black;
       font-size: 10rem;
+      color: black;
+    }
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 55%;
+      height: 55%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      background: radial-gradient(circle at 90% 90%, #1c1c1c, #121212);
+      border: 10px solid #171717;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
+      transition: opacity 1s ease 1s, transform 1s ease 1s;
+      content: "";
+      z-index: -1;
+    }
+
+    &.active::before {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+    }
+
+    &.active::after {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    &.shake {
+      animation: shake 1s ease-out;
     }
   }
 
@@ -68,10 +100,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 1s linear;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
 
-    &.inactive {
-      visibility: hidden;
+    &.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    &.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
   }
 
@@ -82,18 +123,16 @@
     color: variables.$white-text-color;
     font-size: clamp(0.5rem, 0.75rem, 1rem);
     text-shadow: variables.$pink-text-shadow;
-  }
-
-  .visible {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 1s linear;
-  }
-
-  .hidden {
-    visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 1s, opacity 1s linear;
+    transition: opacity 1s ease-in-out;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
   }
 }
 
@@ -129,8 +168,4 @@
   90% {
     transform: translate(-0.5vw, -0.5vw) rotate(-0.5deg);
   }
-}
-
-.shake {
-  animation: shake 1.2s ease-out;
 }
