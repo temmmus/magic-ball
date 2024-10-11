@@ -1,6 +1,9 @@
 <template>
   <div class="magic-ball">
-    <p class="magic-ball__brief" ref="brief">{{ $t("brief") }} {{ countdown }}</p>
+    <p class="magic-ball__brief" ref="brief">
+      <span class="magic-ball__text">{{ $t("brief") }}</span>
+      <span class="magic-ball__countdown">{{ countdown }}</span>
+    </p>
     <div class="magic-ball__container" ref="ball" @click="shake()">
       <div class="magic-ball__triangle" ref="triangle">
         <p class="magic-ball__answer" ref="answer">{{ answer }}</p>
@@ -50,7 +53,6 @@ export default defineComponent({
       const brief = this.$refs.brief as HTMLElement;
       const triangle = this.$refs.triangle as HTMLElement;
 
-      ball.classList.add("inactive");
       brief.classList.add("visible");
       triangle.classList.add("hidden");
 
@@ -65,7 +67,6 @@ export default defineComponent({
       setTimeout(() => {
         brief.classList.remove("visible");
         brief.classList.add("hidden");
-        ball.classList.remove("inactive");
         ball.classList.add("active");
         this.isActive = true;
       }, this.countdown * 1000);

@@ -7,12 +7,13 @@
   justify-content: center;
 
   &__brief {
-    position: absolute;
+    margin: 0;
+    position: fixed;
+    top: 5vh;
+    z-index: 2;
+    width: 90vw;
     text-align: center;
-    top: 1rem;
-    font-size: 1.5rem;
     color: variables.$white-text-color;
-    text-shadow: variables.$pink-text-shadow;
     transition: opacity 1s ease-in-out;
 
     &.visible {
@@ -22,6 +23,18 @@
     &.hidden {
       opacity: 0;
     }
+  }
+
+  &__text {
+    font-size: clamp(1rem, 3vw, 2rem);
+    line-height: 1.2;
+  }
+
+  &__countdown {
+    display: block;
+    width: 100%;
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    text-shadow: variables.$pink-text-shadow;
   }
 
   &__container {
@@ -71,6 +84,10 @@
       transition: opacity 1s ease 1s, transform 1s ease 1s;
       content: "";
       z-index: -1;
+    }
+
+    &.active {
+      cursor: pointer;
     }
 
     &.active::before {
