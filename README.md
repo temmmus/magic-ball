@@ -32,7 +32,7 @@ To run this project locally, follow these steps:
    ```
 4. Run the development server:
    ```bash
-    npm run dev
+   npm run dev
    ```
 5. Open your browser and go to link from console.
 
