@@ -87,6 +87,8 @@ export default defineComponent({
 
       this.isShaking = true;
 
+      if ("vibrate" in navigator) navigator.vibrate([500, 500]);
+
       const ball = this.$refs.ball as HTMLElement;
       const triangle = this.$refs.triangle as HTMLElement;
       const answer = this.$refs.answer as HTMLElement;

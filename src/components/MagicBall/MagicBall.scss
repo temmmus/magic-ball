@@ -86,10 +86,6 @@
       z-index: -1;
     }
 
-    &.active {
-      cursor: pointer;
-    }
-
     &.active::before {
       transform: translate(-50%, -50%) scale(0.8);
       opacity: 0;
